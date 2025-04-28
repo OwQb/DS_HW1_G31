@@ -105,9 +105,11 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
 |---------------------------------------------|----------------------------------------|
 ## 測試與驗證
 ### 測試輸出結果
-![Not_Found](/homework/report_image/main.png)
+![Not_Found](/homework/report_image/output.png)
 ### 繪製折線圖
 |![Not_Found](/homework/report_image/Time_Line_chart_01.png)|![Not_Found](/homework/report_image/Time_Line_chart_02.png)|
 |---------------------------------------------|----------------------------------------|
+---
+可以看到實際輸出符合預期
 
 ## 申論及開發報告
