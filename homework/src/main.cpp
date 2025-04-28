@@ -234,7 +234,7 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
                 totalTime += duration.count();
             }
         }
-        //Memorysize = AfterMemorysize - BeforeMemorysize;
+
         double avgTimeMs = totalTime / repetitions;
         
         // 透過第一筆資料，計算 S_op
