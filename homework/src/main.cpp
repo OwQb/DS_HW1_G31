@@ -31,7 +31,7 @@ void getMemorysize() {//當前運行占用-(呼叫函式創建的arr占用-呼�
 // 插入排序
 vector<int> insertionSort(vector<int> arr) {
     AfterMemorysize = getCurrentMemoryUsage();
-    int n = arr.size();
+    int n = arr.size(); 
     for (int i = 1; i < n; ++i) {
         int key = arr[i];
         int j = i - 1;
@@ -152,7 +152,7 @@ vector<int> CompositeSort(vector<int> arr) {
 //--- 最壞情況資料產生器 ---
 //插入排序：反向排列
 vector<int> generateWorstCaseInsertionSort(int n) {
-    vector<int> arr(n);
+    vector<int> arr(n); check = 0;
     for (int i = 0; i < n; i++)
         arr[i] = n - i;
     return arr;
@@ -166,7 +166,7 @@ void buildWorstCase(vector<int>& arr, int left, int right) {
 }
 //三中位數法快速排序：逆推法
 vector<int> generateWorstCaseQuickSortMedianOfThree(int n) {
-    vector<int> arr(n);
+    vector<int> arr(n); check = 0;
     for (int i = 0; i < n; ++i) {
         arr[i] = i;
     }
@@ -183,7 +183,7 @@ vector<int> generateWorstCaseQuickSortMedianOfThree(int n) {
 
 //堆排序和合併排序：隨機排列
 vector<int> randomgenerateWorstCase(int n) {
-    vector<int> arr(n);
+    vector<int> arr(n); check = 1;
     for (int i = 0; i < n; i++)
     {
         arr[i] = i;
@@ -205,14 +205,14 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
 
     for (int idx = 0; idx < nList.size(); idx++) {
         int n = nList[idx];
-        int repetitions = 1000;
+        int repetitions = 100;
         double totalTime = 0.0;
 
         for (int i = 0; i < repetitions; i++) {
+            vector<int> data = dataGen(n);
             if (check) { // Heap Sort 和Iterative Merge Sort特別處理
                 double MaxTime = 0.0;
                 for (int j = 0; j < 10; j++) {
-                    vector<int> data = dataGen(n);
                     BeforeMemorysize = getCurrentMemoryUsage();
                     auto start = high_resolution_clock::now();
                     data = sortFunc(data); 
@@ -225,7 +225,6 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
                 totalTime += MaxTime;
             }
             else { // 其他排序
-                vector<int> data = dataGen(n);
                 BeforeMemorysize = getCurrentMemoryUsage();
                 auto start = high_resolution_clock::now();
                 data = sortFunc(data);
@@ -267,11 +266,9 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
         if (n <= 500) cout << "\t";
         cout << "\tTime " << complexityType << " : ";
         cout<< " Actual: " << setprecision(6) << avgTimeMs << " ms";
-        cout << "\tPredicted: " << setprecision(6) << predictedTime << " ms";
-        //輸出空間複雜度
-        cout << "\t| Space " << spaceComplexity<<" : ";
-        cout << " Actual: " << Memorysize << " KB";
-        cout << " \tPredicted: " << predictedSpace <<" KB";
+        cout << "\tPredicted: " << setprecision(6) << predictedTime << " ms"; 
+        /*cout << " Actual: " << Memorysize << " KB";
+        cout << " \tPredicted: " << predictedSpace <<" KB";*/
        
         cout << endl;
     }
