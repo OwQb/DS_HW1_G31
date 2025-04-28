@@ -91,12 +91,17 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
 ### Merge Sort(Iterative)和Heap Sort最壞情況資料產生器
 |![Not_Found](/homework/report_image/gen_random.png)|randomgenerateWorstCase函式<br>透過for迴圈產生一個正向排列陣列,再隨機打亂順序|
 |:----------------------------------------------|:-----------------------------------------|
+### Memory相關計算函式
+|![Not_Found](/homework/report_image/getMemory.png)|1. getCurrentMemoryUsage函式<br>獲得當前正在實際使用、載入到RAM的記憶體量<br><br>2. getMemorysize函式<br>AfterMemorysize會在呼叫該排序函式中取得，BeforeMemorysize會在呼叫該排序函式前取得，getCurrentMemoryUsage放在排序最後結束時，最後計算該排序占用的記憶體空間，計算方式為:當前運行占用-(呼叫函式創建的arr占用-呼叫函式前的占用)=排序時的占用|
+|:----------------------------------------------|:-----------------------------------------|
 ### testSort函式(計算資料和輸出)
 |![Not_Found](/homework/report_image/testSort_01.png)|建立所需變數|
 |---------------------------------------------|----------------------------------------|
-|![Not_Found](/homework/report_image/testSort_02.png)|這段透過repetitions控制需要重複排序次數，當Merge Sort(Iterative)和Heap Sort運作時check會被設為1，則取10次中運行最長的時間作為totalTime加總的單次時間，其他排序就正常加總計算所需時間|
-|---------------------------------------------|----------------------------------------|
-|![Not_Found](/homework/report_image/testSort_03.png)|首先將totalTime/repetitions得到平均時間avgTimeMs，Memorysize則是，隨後透過呼叫該函式的參數決定單次時間或空間的算法，|
+|![Not_Found](/homework/report_image/testSort_02.png)|**這段透過repetitions控制需要重複排序次數，當Merge Sort(Iterative)和Heap Sort運作時check會被設為1，則取10次中運行最長的時間作為totalTime加總的單次時間，其他排序就正常加總計算所需時間**|
+|![Not_Found](/homework/report_image/testSort_03.png)|**首先將totalTime/repetitions得到平均時間avgTimeMs，Memorysize則是先前排序最後呼叫getCurrentMemoryUsage取得，隨後透過呼叫該函式的參數決定單次時間或空間的算法，最後乘上該排序的時間或空間複雜度得到推測值**|
+|![Not_Found](/homework/report_image/testSort_04.png)|**輸出avgTimeMs實際運行時間和predictedTime推測時間，輸出Memorysize實際運行空間和predictedSpace推測空間**|
+### main函式
+|![Not_Found](/homework/report_image/main.png)|依照格式:testSort(排序函式,"排序名稱",最壞情況資料產生器函式,"時間複雜度","空間複雜度");分別進行呼叫|
 |---------------------------------------------|----------------------------------------|
 ## 測試與驗證
 
