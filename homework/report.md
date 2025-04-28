@@ -80,7 +80,7 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
 |![Not_Found](/homework/report_image/Heap_Sort.png)|1. heapify函式<br>將陣列arr中以索引i為根的子樹，調整成「最大堆（Max-Heap）」，首先largest 一開始設成自己i，然後找左右子節點，接著比較arr[left]和arr[right]是否比arr[largest]大，找到三者中最大的值，更新 largest，如果最大的不是自己（largest != i），就交換arr[i]和arr[largest]，交換後遞迴呼叫自己，讓被換下去的子樹繼續滿足堆的性質<br><br>2. heapSort函式<br>從最後一個非葉子節點n/2-1開始，往前逐個節點呼叫heapify函式，把整個陣列轉換成一個最大堆，接著把堆頂（最大值arr[0]）和最後一個元素交換，再對新的堆頂呼叫heapify函式，讓剩下的元素重新形成最大堆，就這樣一輪一輪交換，最大元素逐步排到陣列的尾端|
 |:----------------------------------------------|:-----------------------------------------|
 ### CompositeSort
-|![Not_Found](/homework/report_image/CompositeSort.png)|generateWorstCaseInsertionSort函式<br>|
+|![Not_Found](/homework/report_image/CompositeSort.png)|generateWorstCaseInsertionSort函式<br>根據最後輸出的結果選擇當前n在500,1000,2000,3000,4000,5000時，最短的運行時間|
 |:----------------------------------------------|:-----------------------------------------|
 ### Insertion Sort最壞情況資料產生器
 |![Not_Found](/homework/report_image/gen_Insertion_Sort.png)|generateWorstCaseInsertionSort函式<br>透過for迴圈產生一個反向排列陣列|
