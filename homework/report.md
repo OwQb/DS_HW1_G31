@@ -7,6 +7,7 @@ Quick Sort(Median-of-Three)
 Merge Sort(Iterative)  
 Heap Sort  
   
+在n=500, 1000, 2000, 3000, 4000, 5000時  
 專門為每個排序建立最壞情況資料產生器：   
 Insertion Sort：反向排序[n, n-1, n-2, ... , 1]  
 Quick Sort(Median-of-Three)：將排序邏輯反轉，逆推出 worst-case  
@@ -66,7 +67,30 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
       不需要額外開大範圍的記憶體，只需要少數變數暫存交換，  
       所以空間複雜度是O(1)    
 ## 程式實作
-
+### Insertion Sort
+|![Not_Found](/homework/report_image/Insertion_Sort.png)|insertionSort函式<br>從第二個元素開始，依序拿出每個元素，與前面的元素比較，如果比前面小就一直向左移動，直到找到正確位置插入|
+|:----------------------------------------------|:-----------------------------------------|
+### Quick Sort(Median-of-Three)
+|![Not_Found](/homework/report_image/Quick_Sort_p.png)![Not_Found](/homework/report_image/Quick_Sort.png)|1. partitionMedianOfThree函式<br>為了避免最壞情況（例如已排序的資料），這裡不是直接拿第一個或最後一個元素當 pivot，而是取左、中、右三個元素中值作為 pivot，讓 partition 更平衡<br><br>2. quickSortMedianOfThreeHelper函式<br>使用partitionMedianOfThree函式的回傳值作為基準點，把小於 pivot 的放左邊，大於 pivot 的放右邊，然後遞迴排序左右兩邊<br><br>3. quickSortMedianOfThree函式<br>包裝函數，統一排序函式呼叫格式|
+|:----------------------------------------------|:-----------------------------------------|
+### Merge Sort(Iterative)
+|![Not_Found](/homework/report_image/Merge_Sort(Iterative).png)|1. merge函式<br>將arr中的兩個子區段[left, mid-1]和[mid, right-1]（兩段已經是排序好的）合併成一段有序的區間，暫存於temp中，然後複製回原本的arr<br><br>2. mergeSortIterative函式<br>建立一個同樣大小的 temp 陣列作為合併時的暫存空間，然後針對當前size大小，不斷以2*size為單位，抓取left,mid,right三個界線進行合併，最後呼叫merge函式，將 arr[left...mid-1]和arr[mid...right-1]合併|
+|:----------------------------------------------|:-----------------------------------------|
+### Heap Sort
+|![Not_Found](/homework/report_image/Heap_Sort.png)|1. heapify函式<br>將陣列arr中以索引i為根的子樹，調整成「最大堆（Max-Heap）」，首先largest 一開始設成自己i，然後找左右子節點，接著比較arr[left]和arr[right]是否比arr[largest]大，找到三者中最大的值，更新 largest，如果最大的不是自己（largest != i），就交換arr[i]和arr[largest]，交換後遞迴呼叫自己，讓被換下去的子樹繼續滿足堆的性質<br><br>2. heapSort函式<br>從最後一個非葉子節點n/2-1開始，往前逐個節點呼叫heapify函式，把整個陣列轉換成一個最大堆，接著把堆頂（最大值arr[0]）和最後一個元素交換，再對新的堆頂呼叫heapify函式，讓剩下的元素重新形成最大堆，就這樣一輪一輪交換，最大元素逐步排到陣列的尾端|
+|:----------------------------------------------|:-----------------------------------------|
+### CompositeSort
+|![Not_Found](/homework/report_image/CompositeSort.png)|generateWorstCaseInsertionSort函式<br>|
+|:----------------------------------------------|:-----------------------------------------|
+### Insertion Sort最壞情況資料產生器
+|![Not_Found](/homework/report_image/gen_Insertion_Sort.png)|generateWorstCaseInsertionSort函式<br>透過for迴圈產生一個反向排列陣列|
+|:----------------------------------------------|:-----------------------------------------|
+### Quick Sort(Median-of-Three)最壞情況資料產生器
+|![Not_Found](/homework/report_image/gen_Quick_Sort.png)|1. buildWorstCase函式<br>遞迴地製造一個最壞情況的排列，使每次選到的 pivot 都極端不平衡，首先如果left>=right，代表區間只剩0或1個元素，不需要再做直接回傳，接著計算中間位置mid=(left+right)/2，隨後交換arr[mid]和arr[right]，把中間的元素搬到右端，最後遞迴呼叫自己，不斷地縮小範圍（往左邊縮），繼續破壞中間的結構<br><br>2. generateWorstCaseQuickSortMedianOfThree函式<br>首先設定左右邊界left=0、right=n-1，接著當left<right時計算中間位置mid=(left+right)/2，隨後交換arr[mid]和arr[right]，把中間的數字推到右邊，最後right--，縮小考慮範圍（往左縮小），重複這個動作|
+|:----------------------------------------------|:-----------------------------------------|
+### Merge Sort(Iterative)和Heap Sort最壞情況資料產生器
+|![Not_Found](/homework/report_image/gen_random.png)|randomgenerateWorstCase函式<br>透過for迴圈產生一個正向排列陣列,再隨機打亂順序|
+|:----------------------------------------------|:-----------------------------------------|
 ## 測試與驗證
 
 ## 申論及開發報告
