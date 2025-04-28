@@ -92,7 +92,12 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
 |![Not_Found](/homework/report_image/gen_random.png)|randomgenerateWorstCase函式<br>透過for迴圈產生一個正向排列陣列,再隨機打亂順序|
 |:----------------------------------------------|:-----------------------------------------|
 ### testSort函式(計算資料和輸出)
-
+|![Not_Found](/homework/report_image/testSort_01.png)|建立所需變數|
+|---------------------------------------------|----------------------------------------|
+|![Not_Found](/homework/report_image/testSort_02.png)|這段透過repetitions控制需要重複排序次數，當Merge Sort(Iterative)和Heap Sort運作時check會被設為1，則取10次中運行最長的時間作為totalTime加總的單次時間，其他排序就正常加總計算所需時間|
+|---------------------------------------------|----------------------------------------|
+|![Not_Found](/homework/report_image/testSort_03.png)|首先將totalTime/repetitions得到平均時間avgTimeMs，Memorysize則是，隨後透過呼叫該函式的參數決定單次時間或空間的算法，|
+|---------------------------------------------|----------------------------------------|
 ## 測試與驗證
 
 ## 申論及開發報告
