@@ -205,7 +205,7 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
 
     for (int idx = 0; idx < nList.size(); idx++) {
         int n = nList[idx];
-        int repetitions = 1000;
+        int repetitions = 100;
         double totalTime = 0.0;
 
         for (int i = 0; i < repetitions; i++) {
@@ -267,6 +267,7 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
         cout << "\tTime " << complexityType << " : ";
         cout<< " Actual: " << setprecision(6) << avgTimeMs << " ms";
         cout << "\tPredicted: " << setprecision(6) << predictedTime << " ms"; 
+        cout << "\t| Space " << spaceComplexity << " : ";
         cout << " Actual: " << Memorysize << " KB";
         cout << " \tPredicted: " << predictedSpace <<" KB";
        
