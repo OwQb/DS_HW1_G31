@@ -91,6 +91,8 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
 ### Merge Sort(Iterative)和Heap Sort最壞情況資料產生器
 |![Not_Found](/homework/report_image/gen_random.png)|randomgenerateWorstCase函式<br>透過for迴圈產生一個正向排列陣列,再隨機打亂順序|
 |:----------------------------------------------|:-----------------------------------------|
+### testSort函式(計算資料和輸出)
+
 ## 測試與驗證
 
 ## 申論及開發報告
