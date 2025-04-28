@@ -104,5 +104,10 @@ Heap Sort：隨機產生並保留需排序最久的測試資料
 |![Not_Found](/homework/report_image/main.png)|依照格式:testSort(排序函式,"排序名稱",最壞情況資料產生器函式,"時間複雜度","空間複雜度");分別進行呼叫|
 |---------------------------------------------|----------------------------------------|
 ## 測試與驗證
+### 測試輸出結果
+![Not_Found](/homework/report_image/main.png)
+### 繪製折線圖
+|![Not_Found](/homework/report_image/Time_Line_chart_01.png)|![Not_Found](/homework/report_image/Time_Line_chart_02.png)|
+|---------------------------------------------|----------------------------------------|
 
 ## 申論及開發報告
