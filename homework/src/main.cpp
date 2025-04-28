@@ -267,6 +267,7 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
         cout << "\tTime " << complexityType << " : ";
         cout<< " Actual: " << setprecision(6) << avgTimeMs << " ms";
         cout << "\tPredicted: " << setprecision(6) << predictedTime << " ms"; 
+        //輸出空間複雜度
         cout << "\t| Space " << spaceComplexity << " : ";
         cout << " Actual: " << Memorysize << " KB";
         cout << " \tPredicted: " << predictedSpace <<" KB";
