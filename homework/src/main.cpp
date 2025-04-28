@@ -205,7 +205,7 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
 
     for (int idx = 0; idx < nList.size(); idx++) {
         int n = nList[idx];
-        int repetitions = 100;
+        int repetitions = 1000;
         double totalTime = 0.0;
 
         for (int i = 0; i < repetitions; i++) {
