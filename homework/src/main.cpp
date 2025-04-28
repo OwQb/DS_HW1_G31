@@ -12,23 +12,23 @@ using namespace std;
 using namespace chrono;
 bool check = 0;
 
-// ´ú¶q¥Ø«e°O¾ĞÅé¨Ï¥Î¶q¡]³æ¦ì¡GKB¡^
+// æ¸¬é‡ç›®å‰è¨˜æ†¶é«”ä½¿ç”¨é‡ï¼ˆå–®ä½ï¼šKBï¼‰
 size_t getCurrentMemoryUsage() {
     PROCESS_MEMORY_COUNTERS memInfo;
     GetProcessMemoryInfo(GetCurrentProcess(), &memInfo, sizeof(memInfo));
-    return memInfo.WorkingSetSize / 1024;
+    return memInfo.WorkingSetSize/1024;
 }
 
-size_t BeforeMemorysize = 0;//©I¥s¨ç¦¡«eªº¥e¥Î
-size_t AfterMemorysize = 0;//©I¥s¨ç¦¡³Ğ«Øªºarr¥e¥Î
-size_t Memorysize = 0;//±Æ§Ç®Éªº¥e¥Î
+size_t BeforeMemorysize = 0;//å‘¼å«å‡½å¼å‰çš„å ç”¨
+size_t AfterMemorysize = 0;//å‘¼å«å‡½å¼å‰µå»ºçš„arrå ç”¨
+size_t Memorysize = 0;//æ’åºæ™‚çš„å ç”¨
 
-//¨ú±o¬Û®tªº°O¾ĞÅé¨Ï¥Î¶q
-void getMemorysize(int n) {//·í«e¹B¦æ¥e¥Î-(©I¥s¨ç¦¡³Ğ«Øªºarr¥e¥Î-©I¥s¨ç¦¡«eªº¥e¥Î)=±Æ§Ç®Éªº¥e¥Î
-    Memorysize = getCurrentMemoryUsage() - (AfterMemorysize - BeforeMemorysize);
+//å–å¾—ç›¸å·®çš„è¨˜æ†¶é«”ä½¿ç”¨é‡
+void getMemorysize() {//ç•¶å‰é‹è¡Œå ç”¨-(å‘¼å«å‡½å¼å‰µå»ºçš„arrå ç”¨-å‘¼å«å‡½å¼å‰çš„å ç”¨)=æ’åºæ™‚çš„å ç”¨
+    Memorysize = getCurrentMemoryUsage()-(AfterMemorysize - BeforeMemorysize);
 }
 
-// ´¡¤J±Æ§Ç
+// æ’å…¥æ’åº
 vector<int> insertionSort(vector<int> arr) {
     AfterMemorysize = getCurrentMemoryUsage();
     int n = arr.size();
@@ -41,11 +41,11 @@ vector<int> insertionSort(vector<int> arr) {
         }
         arr[j + 1] = key;
     }
-    getMemorysize(arr.size());
+    getMemorysize();
     return arr;
 }
 
-// §Ö³t±Æ§Ç (Median-of-Three) ªº partition ¨ç¼Æ
+// å¿«é€Ÿæ’åº (Median-of-Three) çš„ partition å‡½æ•¸
 int partitionMedianOfThree(vector<int>& arr, int low, int high) {
     int mid = low + (high - low) / 2;
     int pivotIdx = (arr[low] < arr[mid]) ?
@@ -64,7 +64,7 @@ int partitionMedianOfThree(vector<int>& arr, int low, int high) {
     return i + 1;
 }
 
-// §Ö³t±Æ§Ç (Median-of-Three)
+// å¿«é€Ÿæ’åº (Median-of-Three)
 void quickSortMedianOfThreeHelper(vector<int>& arr, int low, int high) {
     while (low < high) {
         int pi = partitionMedianOfThree(arr, low, high);
@@ -81,11 +81,11 @@ void quickSortMedianOfThreeHelper(vector<int>& arr, int low, int high) {
 vector<int> quickSortMedianOfThree(vector<int> arr) {
     AfterMemorysize = getCurrentMemoryUsage();
     quickSortMedianOfThreeHelper(arr, 0, arr.size() - 1);
-    getMemorysize(arr.size());
+    getMemorysize();
     return arr;
 }
 
-// ¦X¨Ö±Æ§Ç¡]Iterative¡^
+// åˆä½µæ’åºï¼ˆIterativeï¼‰
 void merge(vector<int>& arr, int left, int mid, int right, vector<int>& temp) {
     int i = left, j = mid, k = left;
     while (i < mid && j < right) {
@@ -108,11 +108,11 @@ vector<int> mergeSortIterative(vector<int> arr) {
             merge(arr, left, mid, right, temp);
         }
     }
-    getMemorysize(arr.size());
+    getMemorysize();
     return arr;
 }
 
-// °ï±Æ§Ç
+// å †æ’åº
 void heapify(vector<int>& arr, int n, int i) {
     int largest = i;
     int left = 2 * i + 1;
@@ -134,23 +134,23 @@ vector<int> heapSort(vector<int> arr) {
         swap(arr[0], arr[i]);
         heapify(arr, i, 0);
     }
-    getMemorysize(arr.size());
+    getMemorysize();
     return arr;
 }
 
-// ºî¦X±Æ§Ç
+// ç¶œåˆæ’åº
 vector<int> CompositeSort(vector<int> arr) {
     int n = arr.size();
     if (n <= 500) {
         return quickSortMedianOfThree(arr);
     }
-    else {
+    else  {
         return mergeSortIterative(arr);
     }
 }
 
-//--- ³ÌÃa±¡ªp¸ê®Æ²£¥Í¾¹ ---
-//´¡¤J±Æ§Ç¡G¤Ï¦V±Æ¦C
+//--- æœ€å£æƒ…æ³è³‡æ–™ç”¢ç”Ÿå™¨ ---
+//æ’å…¥æ’åºï¼šåå‘æ’åˆ—
 vector<int> generateWorstCaseInsertionSort(int n) {
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
@@ -164,7 +164,7 @@ void buildWorstCase(vector<int>& arr, int left, int right) {
     swap(arr[mid], arr[right]);
     buildWorstCase(arr, left, right - 1);
 }
-//¤T¤¤¦ì¼Æªk§Ö³t±Æ§Ç¡G°f±Àªk
+//ä¸‰ä¸­ä½æ•¸æ³•å¿«é€Ÿæ’åºï¼šé€†æ¨æ³•
 vector<int> generateWorstCaseQuickSortMedianOfThree(int n) {
     vector<int> arr(n);
     for (int i = 0; i < n; ++i) {
@@ -178,18 +178,17 @@ vector<int> generateWorstCaseQuickSortMedianOfThree(int n) {
         swap(arr[mid], arr[right]);
         --right;
     }
-
     return arr;
 }
 
-//°ï±Æ§Ç©M¦X¨Ö±Æ§Ç¡GÀH¾÷±Æ¦C
+//å †æ’åºå’Œåˆä½µæ’åºï¼šéš¨æ©Ÿæ’åˆ—
 vector<int> randomgenerateWorstCase(int n) {
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
     {
         arr[i] = i;
     }
-    for (int i = n - 1; i >= 2; i--)//­ì¥ıªºi=n©M j = rand() % i+1·|«ü©w¶W¥Xn°}¦Cªº½d³ò,©Ò¥H­×§ï¦¨i = n - 1©Mrand() % i
+    for (int i = n - 1; i >= 2; i--)//åŸå…ˆçš„i=nå’Œ j = rand() % i+1æœƒæŒ‡å®šè¶…å‡ºné™£åˆ—çš„ç¯„åœ,æ‰€ä»¥ä¿®æ”¹æˆi = n - 1å’Œrand() % i
     {
         int j = rand() % i;
         swap(arr[j], arr[i]);
@@ -197,7 +196,7 @@ vector<int> randomgenerateWorstCase(int n) {
     return arr;
 }
 
-//´ú¸Õ±Æ§Çºtºâªk
+//æ¸¬è©¦æ’åºæ¼”ç®—æ³•
 void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<int>(*dataGen)(int), const string& complexityType, const string& spaceComplexity) {
     cout << name << " Worst Case Timing (ms):" << endl;
     vector<int> nList = { 500,1000,2000,3000,4000,5000 };
@@ -206,19 +205,18 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
 
     for (int idx = 0; idx < nList.size(); idx++) {
         int n = nList[idx];
-        int repetitions = 10;
+        int repetitions = 1000;
         double totalTime = 0.0;
 
         for (int i = 0; i < repetitions; i++) {
-            if (check) { // Heap Sort ©MIterative Merge Sort¯S§O³B²z
+            if (check) { // Heap Sort å’ŒIterative Merge Sortç‰¹åˆ¥è™•ç†
                 double MaxTime = 0.0;
                 for (int j = 0; j < 10; j++) {
                     vector<int> data = dataGen(n);
                     BeforeMemorysize = getCurrentMemoryUsage();
                     auto start = high_resolution_clock::now();
-                    data = sortFunc(data);
+                    data = sortFunc(data); 
                     auto end = high_resolution_clock::now();
-                    //AfterMemorysize = getCurrentMemoryUsage();
                     auto duration = duration_cast<microseconds>(end - start);
                     if (MaxTime <= duration.count()) {
                         MaxTime = duration.count();
@@ -226,56 +224,55 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
                 }
                 totalTime += MaxTime;
             }
-            else { // ¨ä¥L±Æ§Ç
+            else { // å…¶ä»–æ’åº
                 vector<int> data = dataGen(n);
                 BeforeMemorysize = getCurrentMemoryUsage();
                 auto start = high_resolution_clock::now();
                 data = sortFunc(data);
                 auto end = high_resolution_clock::now();
-                //AfterMemorysize = getCurrentMemoryUsage();
                 auto duration = duration_cast<microseconds>(end - start);
                 totalTime += duration.count();
             }
         }
         //Memorysize = AfterMemorysize - BeforeMemorysize;
-        //BeforeMemorysize = AfterMemorysize;
         double avgTimeMs = totalTime / repetitions;
-
-        // ³z¹L²Ä¤@µ§¸ê®Æ¡A­pºâ S_op
+        
+        // é€éç¬¬ä¸€ç­†è³‡æ–™ï¼Œè¨ˆç®— S_op
         if (idx == 0) {
             if (spaceComplexity == "O(1)") S_op = Memorysize;
             else if (spaceComplexity == "O(log n)") S_op = Memorysize / log2(n);
             else if (spaceComplexity == "O(n)") S_op = Memorysize / n;
         }
 
-        // ¹w´úªÅ¶¡½ÆÂø«×
+        // é æ¸¬ç©ºé–“è¤‡é›œåº¦
         double predictedSpace = 0;
         if (S_op) {
             if (spaceComplexity == "O(1)") predictedSpace = S_op;
             else if (spaceComplexity == "O(log n)") predictedSpace = S_op * log2(n);
             else if (spaceComplexity == "O(n)") predictedSpace = S_op * n;
         }
-        // ³z¹L²Ä¤@µ§¸ê®Æ¡A­pºâ T_op
+        // é€éç¬¬ä¸€ç­†è³‡æ–™ï¼Œè¨ˆç®— T_op
         if (idx == 0) {
-            if (complexityType == "n^2") T_op = avgTimeMs / (n * n);
-            else if (complexityType == "nlogn") T_op = avgTimeMs / (n * log2(n));
+            if (complexityType == "O(n^2)") T_op = avgTimeMs / (n * n);
+            else if (complexityType == "O(nlogn)") T_op = avgTimeMs / (n * log2(n));
         }
-        // ¹w´ú®É¶¡½ÆÂø«×
+        // é æ¸¬æ™‚é–“è¤‡é›œåº¦
         size_t  predictedTime = 0.0;
         if (T_op > 0) {
-            if (complexityType == "n^2") predictedTime = T_op * n * n;
-            else if (complexityType == "nlogn") predictedTime = T_op * n * log2(n);
+            if (complexityType == "O(n^2)") predictedTime = T_op * n * n;
+            else if (complexityType == "O(nlogn)") predictedTime = T_op * n * log2(n);
         }
-        //¿é¥X®É¶¡½ÆÂø«×
+        //è¼¸å‡ºæ™‚é–“è¤‡é›œåº¦
         cout << "n = " << n;
         if (n <= 500) cout << "\t";
-        cout << "\tTime: " << setprecision(7) << avgTimeMs << " ms";
-        cout << "\tPredicted: " << setprecision(7) << predictedTime << " ms";
-        //¿é¥XªÅ¶¡½ÆÂø«×
-        cout << "\tSpace " << spaceComplexity;
-        cout << " | Predicted: " << predictedSpace << " KB";
-        cout << " | Actual: " << Memorysize << " KB";
-
+        cout << "\tTime " << complexityType << " : ";
+        cout<< " Actual: " << setprecision(6) << avgTimeMs << " ms";
+        cout << "\tPredicted: " << setprecision(6) << predictedTime << " ms";
+        //è¼¸å‡ºç©ºé–“è¤‡é›œåº¦
+        cout << "\t| Space " << spaceComplexity<<" : ";
+        cout << " Actual: " << Memorysize << " KB";
+        cout << " \tPredicted: " << predictedSpace <<" KB";
+       
         cout << endl;
     }
     cout << endl;
@@ -283,11 +280,11 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
 
 int main() {
     srand(time(nullptr));
-    testSort(insertionSort, "Insertion Sort", generateWorstCaseInsertionSort, "n^2", "O(1)");
-    testSort(quickSortMedianOfThree, "Quick Sort (Median-of-Three)", generateWorstCaseQuickSortMedianOfThree, "n^2", "O(log n)");//±z¥i¥H±Nn^2§ï¬°nlogn·|µo²{¹w´ú¤£¦p¹ê»Ú¼Wªø±o§Ö,¹w¦ô¹ê»Ú¼Wªø³t«×À³¬°n^1.7¥ª¥k
-    testSort(mergeSortIterative, "Iterative Merge Sort", randomgenerateWorstCase, "nlogn", "O(n)");
-    testSort(heapSort, "Heap Sort", randomgenerateWorstCase, "nlogn", "O(1)");
-    testSort(CompositeSort, "Composite Sort", randomgenerateWorstCase, "nlogn", "O(n)");//¦]¬°¥u¦³n=500¨Ï¥ÎQuick Sort (Median-of-Three)¤§«á³£¬OIterative Merge Sort,©Ò¥H¿é¤J"nlogn", "O(n)"
+    testSort(insertionSort, "Insertion Sort", generateWorstCaseInsertionSort, "O(n^2)", "O(1)");
+    testSort(quickSortMedianOfThree, "Quick Sort (Median-of-Three)", generateWorstCaseQuickSortMedianOfThree, "O(n^2)", "O(log n)");//æ‚¨å¯ä»¥å°‡n^2æ”¹ç‚ºnlognæœƒç™¼ç¾é æ¸¬ä¸å¦‚å¯¦éš›å¢é•·å¾—å¿«,é ä¼°å¯¦éš›å¢é•·é€Ÿåº¦æ‡‰ç‚ºn^1.7å·¦å³
+    testSort(mergeSortIterative, "Iterative Merge Sort", randomgenerateWorstCase, "O(nlogn)", "O(n)");
+    testSort(heapSort, "Heap Sort", randomgenerateWorstCase, "O(nlogn)", "O(1)");
+    testSort(CompositeSort, "Composite Sort", randomgenerateWorstCase, "O(nlogn)", "O(n)");//å› ç‚ºåªæœ‰n=500ä½¿ç”¨Quick Sort (Median-of-Three)ä¹‹å¾Œéƒ½æ˜¯Iterative Merge Sort,æ‰€ä»¥è¼¸å…¥"nlogn", "O(n)"
     system("pause");
     return 0;
 }
