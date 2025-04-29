@@ -209,11 +209,11 @@ void testSort(vector<int>(*sortFunc)(vector<int>), const string& name, vector<in
         double totalTime = 0.0;
 
         for (int i = 0; i < repetitions; i++) {
+            BeforeMemorysize = getCurrentMemoryUsage();
             vector<int> data = dataGen(n);
             if (check) { // Heap Sort 和Iterative Merge Sort特別處理
                 double MaxTime = 0.0;
                 for (int j = 0; j < 10; j++) {
-                    BeforeMemorysize = getCurrentMemoryUsage();
                     auto start = high_resolution_clock::now();
                     data = sortFunc(data); 
                     auto end = high_resolution_clock::now();
